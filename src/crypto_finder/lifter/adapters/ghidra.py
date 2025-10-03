@@ -51,7 +51,7 @@ class GhidraAdapter:
                 str(self.script_path),
                 str(output_json_path), # Script ko output path as argument pass karo
                 "-deleteProject", # Analysis ke baad project delete kar dega
-                "-noanalysis" # Default auto-analysis ko disable karo
+                
             ]
 
             try:

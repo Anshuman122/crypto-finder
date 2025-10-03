@@ -39,6 +39,7 @@ dependencies = [
     "torch",
     "scikit-learn",
     "pandas",
+    "unicorn"
 ]
 
 # --- Development Dependencies (Development ke time kaam aane wali) ---

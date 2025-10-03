@@ -13,7 +13,7 @@ def setup_logging():
     # Iska format behtar readability ke liye set kiya gaya hai.
     logger.add(
         sys.stderr,
-        level="INFO",
+        level="DEBUG",
         format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>",
         colorize=True,
     )

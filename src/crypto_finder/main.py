@@ -1,32 +1,32 @@
-# Hinglish: Yeh hamari application ka main entry point hai.
-# Yeh ek "router" ki tarah kaam karta hai jo alag-alag commands (jaise 'lift', 'scan') ko unke respective modules se jodta hai.
+# Hinglish: Hum yahan main.py ko update kar rahe hain taaki naya 'dynamic-run' command add ho sake.
 
 import typer
 from crypto_finder.common.logging import log
 
-# Alag-alag modules se unke CLI 'app' object ko import karo.
-from crypto_finder.lifter.cli import app as lifter_app
-# from crypto_finder.static_scanner.cli import app as scanner_app # (Ise hum baad me add karenge)
+# Lifter, Static Scanner, Symbolic, aur Dynamic se unke CLI functions ko import karo.
+from crypto_finder.lifter.cli import lift
+from crypto_finder.static_scanner.cli import scan
+from crypto_finder.symbolic.cli import analyze_loops
+from crypto_finder.dynamic_runner.cli import dynamic_run
 
-# Main Typer application object banao.
+# Main Typer application object.
 app = typer.Typer(
     name="crypto-finder",
     help="A robust framework for finding cryptographic primitives in firmware. 🚀",
-    add_completion=False, # Shell completion ko disable kar do, for simplicity.
+    add_completion=False,
 )
 
-# Lifter module ke saare commands ko 'lift' subcommand ke andar add karo.
-# Ab aap 'crypto-finder lift --binary-path ...' use kar sakte hain.
-app.add_typer(lifter_app, name="lift")
-
-# Yahan hum baad me aur bhi commands add karenge.
-# app.add_typer(scanner_app, name="scan")
+# Har function ko ek alag command ke roop me register karo.
+app.command(name="lift")(lift)
+app.command(name="scan")(scan)
+app.command(name="symbolic-loops")(analyze_loops)
+app.command(name="dynamic-run")(dynamic_run)
 
 
 @app.callback()
 def main_callback():
     """
-    Crypto Finder CLI - Use a command like 'lift' to get started.
+    Crypto Finder CLI - Use a command like 'lift', 'scan', 'dynamic-run' etc. to get started.
     """
     log.info("Crypto Finder main CLI invoked.")
 
