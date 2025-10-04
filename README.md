@@ -126,8 +126,9 @@ Full-system emulation with FirmAE
 
 Web Dashboard for visualization of analysis results.
 
+## 📂 Repository Structure
 
-##📂 Repository Structure
+```text
 crypto_finder/
 
 ├── data/                     # (In .gitignore) Local data for the project
@@ -211,6 +212,7 @@ crypto_finder/
 ├── .gitignore
 ├── README.md                 # Project documentation
 └── pyproject.toml            # Dependencies & config
+```
 
 #🤝 Contact
 
