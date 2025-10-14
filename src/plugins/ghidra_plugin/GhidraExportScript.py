@@ -6,7 +6,6 @@ from ghidra.app.decompiler import DecompInterface
 from ghidra.util.task import ConsoleTaskMonitor
 
 def run():
-    """Script ka main execution function."""
     
     args = getScriptArgs()
     if not args:
@@ -64,6 +63,5 @@ def run():
         traceback.print_exc(file=sys.stdout)
 
 
-# Script ko run karo.
 if __name__ == '__main__':
     run()
