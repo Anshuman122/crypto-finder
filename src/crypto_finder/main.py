@@ -6,8 +6,7 @@ from crypto_finder.symbolic.cli import analyze_loops
 from crypto_finder.dynamic_runner.cli import dynamic_run
 
 app = typer.Typer(
-    name="crypto-finder",
-    help="A robust framework for finding cryptographic primitives in firmware. 🚀",
+    name="crypto-finder-by-team-loud",
     add_completion=False,
 )
 
