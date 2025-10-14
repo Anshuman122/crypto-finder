@@ -1,4 +1,3 @@
-# Hinglish: Pytest ke liye fixtures. Yeh reusable helper functions hain jo tests ko setup karne me help karte hain.
 
 import pytest
 from pathlib import Path
@@ -6,11 +5,7 @@ import subprocess
 
 @pytest.fixture(scope="session")
 def test_binary(tmp_path_factory) -> Path:
-    """
-    Ek chota sa C program compile karke ek temporary executable file banata hai.
-    Yeh fixture pure test session me ek baar hi chalega.
-    """
-    # Temporary directory jo pure session me rahegi.
+
     session_tmp_dir = tmp_path_factory.mktemp("binaries")
     source_file = session_tmp_dir / "test.c"
     output_file = session_tmp_dir / "test_executable"
@@ -29,8 +24,6 @@ def test_binary(tmp_path_factory) -> Path:
     """
     source_file.write_text(c_code)
 
-    # C code ko compile karo.
-    # Yeh assume kar raha hai ki 'gcc' installed hai.
     try:
         subprocess.run(
             ["gcc", str(source_file), "-o", str(output_file)],
