@@ -1,4 +1,4 @@
-# 🤖 Crypto Finder: AI-Powered Cryptographic Analysis in Firmware  
+# 🤖 AI/ML-Based Identification of Cryptographic Primitives and Protocols in Multi-Architecture Firmware Binaries
 ### Team Loud ( Team ID 64517 )
 
 ---
