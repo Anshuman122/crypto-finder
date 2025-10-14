@@ -1,4 +1,3 @@
-# Hinglish: Dynamic runner ke liye command-line tool.
 
 import typer
 from crypto_finder.dynamic_runner.core import DynamicRunner
@@ -13,12 +12,10 @@ def dynamic_run(
         help="The hexadecimal shellcode string to execute.",
     ),
 ):
-    """
-    Emulates a piece of x86-64 shellcode and prints the execution trace.
-    """
+
     log.info("CLI command invoked for dynamic shellcode execution.")
     try:
-        # Hex string ko bytes me convert karo
+
         code_bytes = bytes.fromhex(shellcode)
     except ValueError:
         typer.secho("❌ Error: Invalid hexadecimal string in --shellcode.", fg=typer.colors.RED)
