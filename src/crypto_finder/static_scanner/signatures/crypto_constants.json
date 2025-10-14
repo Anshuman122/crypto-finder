@@ -1,5 +1,5 @@
 {
-  "description": "Yeh file common cryptographic constants ko JSON format me store karti hai.",
+  "description": "This file stores common cryptographic constants in JSON format.",
   "algorithms": {
     "MD5_IV": [
       {
