@@ -1,5 +1,4 @@
-# Hinglish: Yeh script ka improved version hai. Isme error handling aur better logging hai.
-# from __future__ import print_function for Python 2/3 compatibility
+
 from __future__ import print_function
 import json
 import sys
@@ -9,7 +8,6 @@ from ghidra.util.task import ConsoleTaskMonitor
 def run():
     """Script ka main execution function."""
     
-    # Check karo ki output file ka path argument me diya gaya hai ya nahi.
     args = getScriptArgs()
     if not args:
         print("[ERROR] No output file path provided to the script. Aborting.")
@@ -30,7 +28,6 @@ def run():
     decomp.openProgram(currentProgram)
 
     try:
-        # Saare functions par iterate karo.
         for func in func_manager.getFunctions(True):
             if func.isThunk():
                 continue
@@ -55,16 +52,13 @@ def run():
             }
             results["functions"].append(func_data)
 
-        # Result ko file me write karo.
         with open(output_file_path, 'w') as f:
             json.dump(results, f, indent=4)
             
         print("[SUCCESS] Analysis complete. Results saved successfully.")
 
     except Exception as e:
-        # Agar koi bhi error aata hai to use print karo.
         print("[ERROR] An exception occurred during script execution.")
-        # Jython exception handling thoda alag hota hai, isliye hum isse safely print kar rahe hain.
         print(str(e))
         import traceback
         traceback.print_exc(file=sys.stdout)
