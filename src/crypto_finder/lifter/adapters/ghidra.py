@@ -1,4 +1,3 @@
-# Hinglish: Yeh Python module Ghidra Headless ko call karta hai aur usse hamari script run karwata hai.
 
 import subprocess
 import tempfile
@@ -9,7 +8,7 @@ from crypto_finder.common.config import settings
 from crypto_finder.common.logging import log
 
 class GhidraAdapter:
-    """Ghidra Headless ke saath interact karne ke liye ek wrapper."""
+    
 
     def __init__(self):
         self.headless_path = settings.ghidra.headless_path
@@ -17,23 +16,17 @@ class GhidraAdapter:
             raise FileNotFoundError(
                 f"Ghidra headless script not found at: {self.headless_path}. Please check your config."
             )
-        # Ghidra script ka path (project root ke relative)
+        
         self.script_path = Path(__file__).parent.parent.parent.parent / "plugins" / "ghidra_plugin" / "GhidraExportScript.py"
         if not self.script_path.exists():
             raise FileNotFoundError(f"GhidraExportScript.py not found at {self.script_path}")
 
     def lift(self, binary_path: Path) -> dict:
-        """
-        Ek binary file ko analyze karne ke liye Ghidra Headless ko run karta hai.
-        
-        :param binary_path: Analyze ki jaane wali file ka path.
-        :return: Ghidra se analyze kiya hua data ek dictionary me.
-        """
+
         if not binary_path.exists():
             log.error(f"Binary file not found: {binary_path}")
             raise FileNotFoundError(f"Binary file not found: {binary_path}")
 
-        # Temporary directory me ek temporary Ghidra project banayenge.
         with tempfile.TemporaryDirectory() as temp_dir_str:
             temp_dir = Path(temp_dir_str)
             project_name = "tempGhidraProject"
@@ -49,19 +42,19 @@ class GhidraAdapter:
                 str(binary_path),
                 "-postscript",
                 str(self.script_path),
-                str(output_json_path), # Script ko output path as argument pass karo
-                "-deleteProject", # Analysis ke baad project delete kar dega
+                str(output_json_path),
+                "-deleteProject", 
                 
             ]
 
             try:
-                # Ghidra command ko run karo.
+        
                 process = subprocess.run(
                     command,
                     capture_output=True,
                     text=True,
-                    check=True, # Agar non-zero exit code ho to exception raise karega.
-                    timeout=300 # 5 minute ka timeout.
+                    check=True,
+                    timeout=300
                 )
                 log.debug("Ghidra process output:\n" + process.stdout)
 
