@@ -1,11 +1,7 @@
-# Hinglish: Yeh file lifter se mile data ko ek numerical vector (features) me convert karti hai,
-# jise hamara ML model samajh sake.
 
 import numpy as np
 from typing import Dict, Any, List
 
-# Ek simple vocabulary (aap isse aur bada kar sakte hain)
-# Yeh P-Code operations ko numbers me map karta hai.
 PCODE_VOCAB = {
     "COPY": 1, "LOAD": 2, "STORE": 3,
     "BRANCH": 4, "CBRANCH": 5, "BRANCHIND": 6,
@@ -20,33 +16,25 @@ PCODE_VOCAB = {
     "BOOL_NEGATE": 33, "BOOL_XOR": 34, "BOOL_AND": 35, "BOOL_OR": 36,
     "FLOAT_ADD": 37, "FLOAT_SUB": 38, "FLOAT_MULT": 39, "FLOAT_DIV": 40,
     "CAST": 41, "CPOOLREF": 42, "NEW": 43,
-    "UNK": 99 # Unknown operations
+    "UNK": 99 
 }
-FEATURE_VECTOR_SIZE = len(PCODE_VOCAB) + 2  # P-Code counts + size + instruction_count
+FEATURE_VECTOR_SIZE = len(PCODE_VOCAB) + 2
 
 def extract_features_from_function(func_data: Dict[str, Any]) -> np.ndarray:
-    """
-    Ek single function ke data se feature vector extract karta hai.
-    """
-    # Feature vector ko zero se initialize karo.
+
     features = np.zeros(FEATURE_VECTOR_SIZE, dtype=np.float32)
 
-    # Feature 1 & 2: Basic metadata (normalized)
-    features[0] = np.log1p(func_data.get("size", 0))  # Log transform for stability
+    features[0] = np.log1p(func_data.get("size", 0))
     features[1] = np.log1p(func_data.get("instruction_count", 0))
-    
-    # Feature 3+: P-Code operation counts
+
     pcode_ops = func_data.get("pcode", [])
     for op_str in pcode_ops:
         op_name = op_str.split(" ")[0]
         op_id = PCODE_VOCAB.get(op_name, PCODE_VOCAB["UNK"])
-        
-        # Vocabulary me har op_id ek unique index hai.
-        # Hum us index ko use karke vector me count badha rahe hain.
-        if (op_id + 1) < FEATURE_VECTOR_SIZE: # Index 0 aur 1 reserved hain
+
+        if (op_id + 1) < FEATURE_VECTOR_SIZE:
             features[op_id + 1] += 1
-            
-    # Vector ko normalize karo (sum of counts = 1) for P-Code features
+
     pcode_sum = np.sum(features[2:])
     if pcode_sum > 0:
         features[2:] /= pcode_sum
