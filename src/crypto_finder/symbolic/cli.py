@@ -1,4 +1,3 @@
-# Hinglish: Symbolic analyzer ke liye command-line tool.
 
 import typer
 from pathlib import Path
@@ -17,9 +16,7 @@ def analyze_loops(
         readable=True,
     ),
 ):
-    """
-    Finds and reports all loops within a binary file using symbolic analysis.
-    """
+
     log.info(f"CLI command invoked for symbolic loop analysis on '{binary_path.name}'.")
     try:
         analyzer = SymbolicAnalyzer(binary_path=binary_path)
@@ -29,7 +26,7 @@ def analyze_loops(
             typer.secho("No loops found in the binary.", fg=typer.colors.YELLOW)
             return
 
-        typer.secho(f"✅ Found {len(loops)} loop(s) in the binary:", fg=typer.colors.GREEN, bold=True)
+        typer.secho(f"Found {len(loops)} loop(s) in the binary:", fg=typer.colors.GREEN, bold=True)
         for i, loop in enumerate(loops):
             typer.secho(f"\n--- Loop #{i+1} ---", fg=typer.colors.CYAN)
             typer.echo(f"  - Entry Address: {loop['entry_address']}")
@@ -37,5 +34,5 @@ def analyze_loops(
 
     except Exception as e:
         log.error(f"Symbolic analysis failed: {e}")
-        typer.secho(f"❌ Error: {e}", fg=typer.colors.RED)
+        typer.secho(f"Error: {e}", fg=typer.colors.RED)
         raise typer.Exit(code=1)
