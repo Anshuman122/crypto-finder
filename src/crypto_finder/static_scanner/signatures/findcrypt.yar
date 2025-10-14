@@ -1,6 +1,4 @@
-/* Hinglish Comment: Yeh YARA rule file ka corrected version hai.
-SHA256 constants me jo typo tha, woh theek kar diya gaya hai.
-*/
+
 rule AES_S_Box
 {
     meta:
@@ -54,3 +52,5 @@ rule SHA256_Constants
     condition:
         $k_constants
 }
+
+#MANY MORE OTHER ARCHITECTURES FEATURES CAN ALSO BE STORED HERE
