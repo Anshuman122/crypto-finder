@@ -35,12 +35,12 @@ def train(
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     
-    log.info(f"Training shuru ho rahi hai: {epochs} epochs, batch size: {batch_size}, lr: {learning_rate}")
+    log.info(f"Training is starting: {epochs} epochs, batch size: {batch_size}, lr: {learning_rate}")
 
     for epoch in range(epochs):
         model.train()
         for features, labels in train_loader:
-            # Forward pass
+           
             outputs = model(features)
             loss = criterion(outputs, labels)
  
