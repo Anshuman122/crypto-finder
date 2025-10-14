@@ -1,22 +1,20 @@
-# Hinglish: Pydantic ka use karke API ke liye data models (schemas) define karte hain.
-# Isse API requests aur responses validate hote hain.
 
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
 class FunctionAnalysisRequest(BaseModel):
-    """Ek single function ko analyze karne ke liye request model."""
+
     name: Optional[str] = "unknown_function"
-    size: int = Field(..., gt=0, description="Function ka size bytes me.")
-    instruction_count: int = Field(..., gt=0, description="Instructions ka total count.")
-    pcode: List[str] = Field(..., description="Function ke P-Code operations ki list.")
+    size: int = Field(..., gt=0, description="size of function in bytes")
+    instruction_count: int = Field(..., gt=0, description="Instructions' total count.")
+    pcode: List[str] = Field(..., description="list of p-code operations of the function.")
 
 class Prediction(BaseModel):
-    """Ek single prediction ka result model."""
-    label: str = Field(..., description="Predicted label ('crypto' ya 'non-crypto').")
-    confidence: float = Field(..., ge=0, le=1, description="Prediction ka confidence score (0 se 1 tak).")
+
+    label: str = Field(..., description="Predicted label ('crypto' or 'non-crypto').")
+    confidence: float = Field(..., ge=0, le=1, description="Prediction confidence score (0 to 1).")
 
 class AnalysisResponse(BaseModel):
-    """API se final analysis response."""
+
     function_name: str
     prediction: Prediction
