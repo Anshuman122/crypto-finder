@@ -1,16 +1,14 @@
-# Python
+
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Environments
 .env
 .venv
 venv/
 ENV/
 
-# Data and Models - Bahut important hai, data kabhi commit mat karna!
 data/
 *.pt
 *.pth
@@ -18,13 +16,11 @@ data/
 *.db
 *.sqlite3
 
-# Build artifacts
 build/
 dist/
 *.egg-info/
 .eggs/
 
-# IDE / Editor folders
 .vscode/
 .idea/
 *.suo
@@ -33,7 +29,6 @@ dist/
 *.sln
 *.swp
 
-# Testing
 .pytest_cache/
 .coverage
 htmlcov/
