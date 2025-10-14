@@ -1,17 +1,12 @@
-# Hinglish: Static scanner ke liye command-line tool. Yahan bug fix kiya gaya hai.
-
 import typer
 from pathlib import Path
 import json
 from crypto_finder.static_scanner.core import StaticScanner
 from crypto_finder.common.logging import log
-# 'settings' ke saath-saath ab 'ROOT_DIR' ko bhi directly import karo.
 from crypto_finder.common.config import settings, ROOT_DIR
 
-# Default YARA rule file ka path ab 'ROOT_DIR' ka use karke banega.
 DEFAULT_RULES_PATH = ROOT_DIR / "src" / "crypto_finder" / "static_scanner" / "signatures" / "findcrypt.yar"
 
-# Typer function jo 'scan' command banega.
 def scan(
     binary_path: Path = typer.Option(
         ...,
@@ -40,9 +35,7 @@ def scan(
         writable=True,
     ),
 ):
-    """
-    Scans a binary file for cryptographic signatures using YARA rules.
-    """
+
     log.info(f"CLI command invoked to scan '{binary_path.name}'.")
     try:
         scanner = StaticScanner(rules_path=rules_path)
@@ -52,7 +45,7 @@ def scan(
             typer.secho("No cryptographic signatures found.", fg=typer.colors.YELLOW)
             return
 
-        typer.secho(f"✅ Found {len(results)} potential cryptographic signature(s):", fg=typer.colors.GREEN, bold=True)
+        typer.secho(f"Found {len(results)} potential cryptographic signature(s):", fg=typer.colors.GREEN, bold=True)
         for result in results:
             typer.secho(f"\n--- Rule: {result['rule']} ({result['crypto_name']}) ---", fg=typer.colors.CYAN)
             for match in result['matches']:
@@ -65,5 +58,5 @@ def scan(
 
     except Exception as e:
         log.error(f"Scan failed: {e}")
-        typer.secho(f"❌ Error: {e}", fg=typer.colors.RED)
+        typer.secho(f"Error: {e}", fg=typer.colors.RED)
         raise typer.Exit(code=1)
