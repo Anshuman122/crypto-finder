@@ -1,6 +1,4 @@
-# Hinglish: Yeh background worker ke liye ek optimized Dockerfile hai.
 
-# --- Stage 1: Build Stage ---
 FROM python:3.10-slim AS builder
 WORKDIR /usr/src/app
 ENV VIRTUAL_ENV=/opt/venv
@@ -10,7 +8,6 @@ RUN pip install --upgrade pip
 COPY pyproject.toml .
 RUN pip install ".[dev]"
 
-# --- Stage 2: Final Stage ---
 FROM python:3.10-slim
 WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
@@ -18,5 +15,4 @@ ENV PATH="/opt/venv/bin:$PATH"
 COPY src/ /app/src
 COPY scripts/ /app/scripts/
 
-# Default command jab container start ho
 CMD ["python", "scripts/run_pipeline.py", "--help"]
